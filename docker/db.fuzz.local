@@ -1,0 +1,45 @@
+; Zone file for fuzz.local
+; This zone gives the fuzzer real records to query against,
+; so warm-up probes return valid responses before fuzzing begins.
+
+$TTL    604800
+$ORIGIN fuzz.local.
+
+@   IN  SOA ns1.fuzz.local. admin.fuzz.local. (
+            2024010101  ; Serial
+            3600        ; Refresh
+            1800        ; Retry
+            604800      ; Expire
+            86400 )     ; Negative TTL
+
+; Name servers
+@       IN  NS      ns1.fuzz.local.
+@       IN  NS      ns2.fuzz.local.
+
+; A records
+@       IN  A       192.168.0.1
+ns1     IN  A       192.168.0.1
+ns2     IN  A       192.168.0.2
+www     IN  A       192.168.0.10
+mail    IN  A       192.168.0.20
+test    IN  A       192.168.0.100
+
+; AAAA records
+@       IN  AAAA    ::1
+www     IN  AAAA    ::1
+
+; MX records
+@       IN  MX  10  mail.fuzz.local.
+@       IN  MX  20  mail2.fuzz.local.
+mail2   IN  A       192.168.0.21
+
+; CNAME
+ftp     IN  CNAME   www.fuzz.local.
+api     IN  CNAME   www.fuzz.local.
+
+; TXT records (common fuzz target — arbitrary length content)
+@       IN  TXT     "v=spf1 include:fuzz.local ~all"
+@       IN  TXT     "fuzztarget=true version=bind9"
+
+; Deep subdomain (tests label depth parsing)
+a.b.c   IN  A       192.168.0.50

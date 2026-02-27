@@ -1,0 +1,15 @@
+// named.conf.local - Zone definitions for fuzz target
+
+// Primary zone — this is what we fuzz queries against
+zone "fuzz.local" {
+    type master;
+    file "/etc/bind/db.fuzz.local";
+    allow-transfer { any; };  // Allow zone transfers (another fuzz surface)
+};
+
+// Reverse zone
+zone "0.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.fuzz.local.rev";
+    allow-transfer { any; };
+};

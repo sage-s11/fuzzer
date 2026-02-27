@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  bind9-target:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dns-fuzz-target
+    ports:
+      - "5353:53/udp"    # Map to 5353 so you don't need root for port 53
+      - "5353:53/tcp"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "dig", "@127.0.0.1", "fuzz.local", "A", "+time=2", "+tries=1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

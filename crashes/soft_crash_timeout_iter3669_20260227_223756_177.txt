@@ -1,0 +1,10 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-27T17:07:56.177550022Z
+Iteration : 3669
+Mutator   : BitFlip(1)+HeaderFlags+RandomType
+Payload   : 28 bytes
+Hex Dump  :
+0000  13 3A FF FF 00 01 00 00 00 00 00 00 04 66 75 7A  |.:ÿÿ.........fuz|
+0010  7A 05 6C 6F 63 61 6C 00 FF FF 00 01              |z.local.ÿÿ..|
+
