@@ -1,3 +1,4 @@
-com/fuzzer/ClassifierAndIsolationTest.class
 com/fuzzer/SemanticMutatorTest.class
 com/fuzzer/FuzzerTest.class
+com/fuzzer/AxfrFuzzerTest.class
+com/fuzzer/ClassifierAndIsolationTest.class

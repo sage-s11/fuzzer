@@ -1,9 +1,12 @@
+/home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/AxfrFuzzer.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/crash/CrashClassifier.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/harness/UdpHarness.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/fsm/StateMachine.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/mutator/Mutators.java
+/home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/harness/TcpHarness.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/dns/DnsQuestion.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/fsm/DnsStateMachine.java
+/home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/mutator/AxfrMutators.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/mutator/SemanticMutators.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/mutator/Mutator.java
 /home/sage-s/projects/protocols/fuzzer/src/main/java/com/fuzzer/dns/DnsHeader.java

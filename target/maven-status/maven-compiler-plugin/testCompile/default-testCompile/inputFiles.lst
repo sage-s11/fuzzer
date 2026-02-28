@@ -1,3 +1,4 @@
 /home/sage-s/projects/protocols/fuzzer/src/test/java/com/fuzzer/ClassifierAndIsolationTest.java
 /home/sage-s/projects/protocols/fuzzer/src/test/java/com/fuzzer/FuzzerTest.java
 /home/sage-s/projects/protocols/fuzzer/src/test/java/com/fuzzer/SemanticMutatorTest.java
+/home/sage-s/projects/protocols/fuzzer/src/test/java/com/fuzzer/AxfrFuzzerTest.java

@@ -3,10 +3,13 @@ package com.fuzzer;
 /**
  * Main entry point for the DNS Protocol Fuzzer.
  *
- * Usage:
+ * UDP mode (default):
  *   java -jar fuzzer.jar [options]
  *
- * Options:
+ * TCP/AXFR mode:
+ *   java -jar fuzzer.jar --tcp [options]
+ *
+ * Options (UDP):
  *   --host <ip>           Target DNS server IP (default: 127.0.0.1)
  *   --port <port>         Target DNS server port (default: 53)
  *   --domain <domain>     Domain to fuzz queries against (default: example.com)
@@ -14,31 +17,32 @@ package com.fuzzer;
  *   --timeout <ms>        Response timeout in milliseconds (default: 2000)
  *   --iterations <n>      Number of fuzz iterations (default: 10000)
  *   --mode <mode>         Mutation mode: ROUND_ROBIN | RANDOM | STACKED (default: ROUND_ROBIN)
- *   --isolate <mutator>   Run only the named mutator (substring match, sets mode=ISOLATED)
+ *   --isolate <mutator>   Run only the named mutator (substring match)
  *
- * Mutator names (for --isolate):
- *   HeaderFlags, BitFlip, BoundaryValue, QdCountMismatch,
- *   LabelLength, OversizeLabel, NullByteInject, RandomType
- *
- * Examples:
- *   # Full fuzz run against local BIND9
- *   java -jar fuzzer.jar --host 127.0.0.1 --port 5353 --domain fuzz.local --iterations 50000
- *
- *   # Isolate HeaderFlags only — confirm it as root cause
- *   java -jar fuzzer.jar --isolate HeaderFlags --port 5353 --domain fuzz.local --iterations 5000
- *
- *   # Isolate all Label mutators (substring match catches both LabelLength + OversizeLabel)
- *   java -jar fuzzer.jar --isolate label --port 5353 --domain fuzz.local --iterations 5000
- *
- *   # Stacked mutations, custom crash directory
- *   java -jar fuzzer.jar --mode STACKED --crashes /tmp/dns-crashes --iterations 100000
+ * Options (TCP/AXFR — requires --tcp):
+ *   --tcp                 Enable TCP mode (routes to AxfrFuzzer)
+ *   --zone <zone>         Zone to request AXFR for (default: example.com)
+ *   --axfr-mode <mode>    ALL | LENGTH | AXFR_ONLY | FRAMING (default: ALL)
+ *   --port, --host, --crashes, --timeout, --iterations as above
  */
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        boolean tcp = false;
+        for (String arg : args) {
+            if (arg.equals("--tcp")) { tcp = true; break; }
+        }
+
+        if (tcp) {
+            runAxfrFuzzer(args);
+        } else {
+            runUdpFuzzer(args);
+        }
+    }
+
+    private static void runUdpFuzzer(String[] args) throws Exception {
         DnsFuzzer.Builder builder = new DnsFuzzer.Builder();
 
-        // Parse CLI args
         for (int i = 0; i < args.length - 1; i++) {
             switch (args[i]) {
                 case "--host"       -> builder.target(args[++i], builder.targetPort);
@@ -54,8 +58,31 @@ public class Main {
         }
 
         printBanner();
-
         DnsFuzzer fuzzer = builder.build();
+        fuzzer.init();
+        fuzzer.run();
+    }
+
+    private static void runAxfrFuzzer(String[] args) throws Exception {
+        AxfrFuzzer.Builder builder = new AxfrFuzzer.Builder();
+
+        for (int i = 0; i < args.length; i++) {
+            if (i + 1 >= args.length) break;
+            switch (args[i]) {
+                case "--host"       -> builder.target(args[++i], builder.targetPort);
+                case "--port"       -> builder.target(builder.targetHost, Integer.parseInt(args[++i]));
+                case "--zone"       -> builder.zone(args[++i]);
+                case "--domain"     -> builder.zone(args[++i]);
+                case "--crashes"    -> builder.crashDir(args[++i]);
+                case "--timeout"    -> builder.timeout(Integer.parseInt(args[++i]));
+                case "--iterations" -> builder.iterations(Long.parseLong(args[++i]));
+                case "--axfr-mode"  -> builder.mode(AxfrFuzzer.RunMode.valueOf(args[++i].toUpperCase()));
+                case "--help"       -> { printHelp(); return; }
+            }
+        }
+
+        printBanner();
+        AxfrFuzzer fuzzer = builder.build();
         fuzzer.init();
         fuzzer.run();
     }
@@ -63,20 +90,20 @@ public class Main {
     private static void printBanner() {
         System.out.println("""
                 ╔══════════════════════════════════════════════╗
-                ║    DNS STATEFUL PROTOCOL FUZZER  v1.1        ║
-                ║    Stateful DNS Mutation Engine              ║
-                ║    + Crash Classifier  + Isolated Mode       ║
+                ║    DNS STATEFUL PROTOCOL FUZZER  v1.2        ║
+                ║    UDP + TCP/AXFR  •  Semantic Mutators      ║
+                ║    Crash Classifier  •  Isolated Mode        ║
                 ╚══════════════════════════════════════════════╝
                 """);
     }
 
     private static void printHelp() {
         System.out.println("""
-                DNS Protocol Fuzzer v1.1
+                DNS Protocol Fuzzer v1.2
 
-                Usage: java -jar fuzzer.jar [options]
+                Usage: java -jar fuzzer.jar [--tcp] [options]
 
-                Options:
+                UDP mode (default):
                   --host <ip>           Target DNS server IP        (default: 127.0.0.1)
                   --port <port>         Target DNS server port       (default: 53)
                   --domain <domain>     Domain to fuzz against       (default: example.com)
@@ -85,31 +112,28 @@ public class Main {
                   --iterations <n>      Fuzz iteration count         (default: 10000)
                   --mode <mode>         ROUND_ROBIN | RANDOM | STACKED (default: ROUND_ROBIN)
                   --isolate <mutator>   Run only this mutator (substring match)
-                  --help                Show this help
 
-                Mutator names (use with --isolate):
-                  HeaderFlags       Corrupt DNS header flag bits
-                  BitFlip           Flip random bits (matches BitFlip(1) and BitFlip(4))
-                  BoundaryValue     Replace bytes with 0x00/0xFF/0x7F/0x80
-                  QdCountMismatch   Set QDCOUNT to impossible values
-                  LabelLength       Corrupt label length bytes
-                  OversizeLabel     Replace domain with 255-byte label chain
-                  NullByteInject    Inject null bytes into question section
-                  RandomType        Replace QTYPE with reserved values
-                  label             Matches both LabelLength AND OversizeLabel
+                TCP/AXFR mode (add --tcp):
+                  --tcp                 Enable TCP/AXFR fuzzer
+                  --zone <zone>         Zone for AXFR requests       (default: example.com)
+                  --axfr-mode <mode>    ALL | LENGTH | AXFR_ONLY | FRAMING (default: ALL)
+                  --port, --host, --crashes, --timeout, --iterations as above
 
                 Examples:
-                  # Standard run
+                  # Standard UDP fuzz
                   java -jar fuzzer.jar --port 5353 --domain fuzz.local --iterations 10000
 
-                  # Confirm HeaderFlags is root cause
-                  java -jar fuzzer.jar --isolate HeaderFlags --port 5353 --domain fuzz.local
+                  # TCP/AXFR full sweep
+                  java -jar fuzzer.jar --tcp --port 5353 --zone fuzz.local --iterations 5000
 
-                  # Deep-dive label encoding edge cases
-                  java -jar fuzzer.jar --isolate label --port 5353 --timeout 200 --iterations 20000
+                  # TCP length field attacks only
+                  java -jar fuzzer.jar --tcp --port 5353 --zone fuzz.local --axfr-mode LENGTH
 
-                  # Stacked mutations
-                  java -jar fuzzer.jar --mode STACKED --port 5353 --timeout 200 --iterations 50000
+                  # AXFR protocol mutations only
+                  java -jar fuzzer.jar --tcp --port 5353 --zone fuzz.local --axfr-mode AXFR_ONLY
+
+                  # TCP framing / pipelining attacks
+                  java -jar fuzzer.jar --tcp --port 5353 --zone fuzz.local --axfr-mode FRAMING
                 """);
     }
 }
