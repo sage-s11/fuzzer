@@ -1,0 +1,54 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T09:30:26.997059516Z
+Iteration : 20
+Mutator   : OversizeLabel
+
+--- TRIAGE ---
+Verdict   : LABEL_OVERFLOW
+Priority  : HIGH
+Reasoning : Domain name label chain appears to exceed 255-byte maximum (RFC 1035 §3.1) or is missing root label terminator. Bytes scanned: 256. Server should return FORMERR. Timeout here is anomalous. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 593 bytes
+Hex Dump  :
+0000  13 39 01 00 00 01 00 00 00 00 00 00 3F 61 61 61  |.9..........?aaa|
+0010  61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  |aaaaaaaaaaaaaaaa|
+0020  61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  |aaaaaaaaaaaaaaaa|
+0030  61 61 61 61 61 61 61 61 61 61 61 61 61 61 61 61  |aaaaaaaaaaaaaaaa|
+0040  61 61 61 61 61 61 61 61 61 61 61 61 3F 62 62 62  |aaaaaaaaaaaa?bbb|
+0050  62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62  |bbbbbbbbbbbbbbbb|
+0060  62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62  |bbbbbbbbbbbbbbbb|
+0070  62 62 62 62 62 62 62 62 62 62 62 62 62 62 62 62  |bbbbbbbbbbbbbbbb|
+0080  62 62 62 62 62 62 62 62 62 62 62 62 3F 63 63 63  |bbbbbbbbbbbb?ccc|
+0090  63 63 63 63 63 63 63 63 63 63 63 63 63 63 63 63  |cccccccccccccccc|
+00A0  63 63 63 63 63 63 63 63 63 63 63 63 63 63 63 63  |cccccccccccccccc|
+00B0  63 63 63 63 63 63 63 63 63 63 63 63 63 63 63 63  |cccccccccccccccc|
+00C0  63 63 63 63 63 63 63 63 63 63 63 63 3F 64 64 64  |cccccccccccc?ddd|
+00D0  64 64 64 64 64 64 64 64 64 64 64 64 64 64 64 64  |dddddddddddddddd|
+00E0  64 64 64 64 64 64 64 64 64 64 64 64 64 64 64 64  |dddddddddddddddd|
+00F0  64 64 64 64 64 64 64 64 64 64 64 64 64 64 64 64  |dddddddddddddddd|
+0100  64 64 64 64 64 64 64 64 64 64 64 64 3F 65 65 65  |dddddddddddd?eee|
+0110  65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65  |eeeeeeeeeeeeeeee|
+0120  65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65  |eeeeeeeeeeeeeeee|
+0130  65 65 65 65 65 65 65 65 65 65 65 65 65 65 65 65  |eeeeeeeeeeeeeeee|
+0140  65 65 65 65 65 65 65 65 65 65 65 65 3F 66 66 66  |eeeeeeeeeeee?fff|
+0150  66 66 66 66 66 66 66 66 66 66 66 66 66 66 66 66  |ffffffffffffffff|
+0160  66 66 66 66 66 66 66 66 66 66 66 66 66 66 66 66  |ffffffffffffffff|
+0170  66 66 66 66 66 66 66 66 66 66 66 66 66 66 66 66  |ffffffffffffffff|
+0180  66 66 66 66 66 66 66 66 66 66 66 66 3F 67 67 67  |ffffffffffff?ggg|
+0190  67 67 67 67 67 67 67 67 67 67 67 67 67 67 67 67  |gggggggggggggggg|
+01A0  67 67 67 67 67 67 67 67 67 67 67 67 67 67 67 67  |gggggggggggggggg|
+01B0  67 67 67 67 67 67 67 67 67 67 67 67 67 67 67 67  |gggggggggggggggg|
+01C0  67 67 67 67 67 67 67 67 67 67 67 67 3F 68 68 68  |gggggggggggg?hhh|
+01D0  68 68 68 68 68 68 68 68 68 68 68 68 68 68 68 68  |hhhhhhhhhhhhhhhh|
+01E0  68 68 68 68 68 68 68 68 68 68 68 68 68 68 68 68  |hhhhhhhhhhhhhhhh|
+01F0  68 68 68 68 68 68 68 68 68 68 68 68 68 68 68 68  |hhhhhhhhhhhhhhhh|
+0200  68 68 68 68 68 68 68 68 68 68 68 68 3F 69 69 69  |hhhhhhhhhhhh?iii|
+0210  69 69 69 69 69 69 69 69 69 69 69 69 69 69 69 69  |iiiiiiiiiiiiiiii|
+0220  69 69 69 69 69 69 69 69 69 69 69 69 69 69 69 69  |iiiiiiiiiiiiiiii|
+0230  69 69 69 69 69 69 69 69 69 69 69 69 69 69 69 69  |iiiiiiiiiiiiiiii|
+0240  69 69 69 69 69 69 69 69 69 69 69 69 00 00 01 00  |iiiiiiiiiiii....|
+0250  01                                               |.|
+

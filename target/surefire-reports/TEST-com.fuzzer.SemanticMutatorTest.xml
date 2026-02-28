@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.fuzzer.SemanticMutatorTest" time="0.063" tests="27" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.fuzzer.SemanticMutatorTest" time="0.061" tests="27" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-21-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/sage-s/projects/protocols/fuzzer/target/surefire/surefirebooter-20260228125053211_3.jar /home/sage-s/projects/protocols/fuzzer/target/surefire 2026-02-28T12-50-53_141-jvmRun1 surefire-20260228125053211_1tmp surefire_0-20260228125053211_2tmp"/>
+    <property name="sun.java.command" value="/home/sage-s/projects/protocols/fuzzer/target/surefire/surefirebooter-20260228150015237_3.jar /home/sage-s/projects/protocols/fuzzer/target/surefire 2026-02-28T15-00-15_168-jvmRun1 surefire-20260228150015237_1tmp surefire_0-20260228150015237_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/sage-s/projects/protocols/fuzzer/target/test-classes:/home/sage-s/projects/protocols/fuzzer/target/classes:/home/sage-s/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.0/junit-jupiter-5.10.0.jar:/home/sage-s/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.0/junit-jupiter-api-5.10.0.jar:/home/sage-s/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/sage-s/.m2/repository/org/junit/platform/junit-platform-commons/1.10.0/junit-platform-commons-1.10.0.jar:/home/sage-s/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/sage-s/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.0/junit-jupiter-params-5.10.0.jar:/home/sage-s/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.0/junit-jupiter-engine-5.10.0.jar:/home/sage-s/.m2/repository/org/junit/platform/junit-platform-engine/1.10.0/junit-platform-engine-1.10.0.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -27,7 +27,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
-    <property name="surefire.real.class.path" value="/home/sage-s/projects/protocols/fuzzer/target/surefire/surefirebooter-20260228125053211_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/sage-s/projects/protocols/fuzzer/target/surefire/surefirebooter-20260228150015237_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="21.0.10+7-Ubuntu-124.04"/>
     <property name="user.name" value="sage-s"/>
@@ -60,8 +60,8 @@
     <system-out><![CDATA[[MUTATION ENGINE] Isolated to 7 mutator(s): EdnsOptOverflow(RDLENGTH_OVERFLOW), EdnsOptOverflow(OPTION_LEN_OVERFLOW), EdnsOptOverflow(ZERO_RDLENGTH), EdnsOptOverflow(NEGATIVE_OPTION_LEN), EdnsOptOverflow(STACKED_OVERFLOW), EdnsOptOverflow(RESERVED_OPTION_CODE), EdnsOptOverflow(VERSION_NONZERO)
 ]]></system-out>
   </testcase>
-  <testcase name="allEdnsVariantsLongerThanSeed" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
-  <testcase name="compressionPtrDoesNotModifySeed" classname="com.fuzzer.SemanticMutatorTest" time="0.0"/>
+  <testcase name="allEdnsVariantsLongerThanSeed" classname="com.fuzzer.SemanticMutatorTest" time="0.002"/>
+  <testcase name="compressionPtrDoesNotModifySeed" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="zeroLabelClassifiedCorrectly" classname="com.fuzzer.SemanticMutatorTest" time="0.004"/>
   <testcase name="forwardPtrIsOob" classname="com.fuzzer.SemanticMutatorTest" time="0.002"/>
   <testcase name="selfLoopPointerIsCorrect" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
@@ -71,7 +71,7 @@
 ]]></system-out>
   </testcase>
   <testcase name="loneDotProducesMinimalPacket" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
-  <testcase name="zeroLabelStartBeginsWithRoot" classname="com.fuzzer.SemanticMutatorTest" time="0.0"/>
+  <testcase name="zeroLabelStartBeginsWithRoot" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="mixedPtrLabelHasPointer" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="zeroLabelMidInsertedAfterFirstLabel" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="ednsVariantsDoNotModifySeed" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
@@ -82,14 +82,14 @@
 ]]></system-out>
   </testcase>
   <testcase name="selfLoopMinLength" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
-  <testcase name="rdlengthOverflowClaimsMoreThanAvailable" classname="com.fuzzer.SemanticMutatorTest" time="0.005"/>
+  <testcase name="rdlengthOverflowClaimsMoreThanAvailable" classname="com.fuzzer.SemanticMutatorTest" time="0.003"/>
   <testcase name="consecutiveZerosHasThreeZeros" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="compressionPtrClassifiedCorrectly" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="isolateZeroLength" classname="com.fuzzer.SemanticMutatorTest" time="0.001">
     <system-out><![CDATA[[MUTATION ENGINE] Isolated to 6 mutator(s): ZeroLengthLabel(ZERO_LABEL_MID), ZeroLengthLabel(ZERO_LABEL_START), ZeroLengthLabel(CONSECUTIVE_ZEROS), ZeroLengthLabel(LABEL_AFTER_ROOT), ZeroLengthLabel(MIXED_PTR_LABEL), ZeroLengthLabel(LONE_DOT)
 ]]></system-out>
   </testcase>
-  <testcase name="engineHasV2Mutators" classname="com.fuzzer.SemanticMutatorTest" time="0.0"/>
+  <testcase name="engineHasV2Mutators" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
   <testcase name="chainDepthHas64Hops" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
-  <testcase name="versionNonzeroHasNonzeroVersion" classname="com.fuzzer.SemanticMutatorTest" time="0.001"/>
+  <testcase name="versionNonzeroHasNonzeroVersion" classname="com.fuzzer.SemanticMutatorTest" time="0.0"/>
 </testsuite>
