@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:03:59.099187038Z
+Iteration : 59
+Mutator   : NullByteInject
+
+--- TRIAGE ---
+Verdict   : LABEL_OVERFLOW
+Priority  : MEDIUM
+Reasoning : Domain name label chain has no root label terminator (0x00). Structurally incomplete QNAME. Server should return FORMERR. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: false
+
+--- PAYLOAD ---
+Size      : 23 bytes
+Hex Dump  :
+0000  33 B7 01 00 00 01 00 00 00 00 10 00 24 67 75 7A  |3·..........$guz|
+0010  00 C0 0C 00 01 00 01                             |.À.....|
+

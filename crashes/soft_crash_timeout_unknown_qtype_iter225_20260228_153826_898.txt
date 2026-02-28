@@ -1,0 +1,23 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:08:26.898016310Z
+Iteration : 225
+Mutator   : EdnsOptOverflow(STACKED_OVERFLOW)
+
+--- TRIAGE ---
+Verdict   : UNKNOWN_QTYPE
+Priority  : MEDIUM
+Reasoning : QTYPE=0xC010 is in reserved range. QTYPE=0 is undefined. QTYPE >= 0x8000 is private use / unassigned. Server should return NOTIMP or NOERROR with empty answer section. Timeout here is worth investigating. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: false
+
+--- PAYLOAD ---
+Size      : 109 bytes
+Hex Dump  :
+0000  13 39 01 00 00 01 00 00 00 00 00 01 C0 0E C0 10  |.9..........À.À.|
+0010  C0 12 00 00 29 10 00 00 00 00 00 00 50 00 01 00  |À...).......P...|
+0020  64 41 41 41 41 00 02 00 64 41 41 41 41 00 03 00  |dAAAA...dAAAA...|
+0030  64 41 41 41 41 00 04 00 64 41 41 41 41 00 05 00  |dAAAA...dAAAA...|
+0040  64 41 41 41 41 00 06 00 64 41 41 41 41 00 07 00  |dAAAA...dAAAA...|
+0050  64 41 41 41 41 00 08 00 64 41 41 41 41 00 09 00  |dAAAA...dAAAA...|
+0060  64 41 41 41 41 00 0A 00 64 41 41 41 41           |dAAAA...dAAAA|
+

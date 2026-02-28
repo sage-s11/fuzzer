@@ -7,6 +7,7 @@ com/fuzzer/mutator/Mutators$RandomTypeMutator.class
 com/fuzzer/dns/EdnsOption.class
 com/fuzzer/mutator/Mutator.class
 com/fuzzer/mutator/SemanticMutators$CompressionPointerLoopMutator.class
+com/fuzzer/corpus/CorpusManager$InterestingnessResult.class
 com/fuzzer/fsm/StateTransition.class
 com/fuzzer/DnsFuzzer$Builder.class
 com/fuzzer/mutator/Mutators$BitFlipMutator.class
@@ -59,6 +60,7 @@ com/fuzzer/dns/DnsQuestion.class
 com/fuzzer/fsm/ProtocolState.class
 com/fuzzer/harness/UdpHarness.class
 com/fuzzer/mutator/Mutators.class
+com/fuzzer/corpus/CorpusManager$SeedEntry$Origin.class
 com/fuzzer/fsm/StateMachine.class
 com/fuzzer/harness/TcpHarness.class
 com/fuzzer/fsm/StateTransition$Trigger.class

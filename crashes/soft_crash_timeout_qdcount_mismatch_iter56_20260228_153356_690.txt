@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:03:56.690589407Z
+Iteration : 56
+Mutator   : QdCountMismatch
+
+--- TRIAGE ---
+Verdict   : QDCOUNT_MISMATCH
+Priority  : HIGH
+Reasoning : QDCOUNT=65535 claims 65535 questions but payload only has 17 bytes after header (327675 bytes minimum needed). Server should return FORMERR (rcode=1). Timeout instead of FORMERR is anomalous. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 29 bytes
+Hex Dump  :
+0000  13 3C 01 00 FF FF 00 00 00 00 00 01 C0 0E C0 0C  |.<..ÿÿ......À.À.|
+0010  00 01 00 00 29 10 00 00 FF 00 00 00 00           |....)...ÿ....|
+

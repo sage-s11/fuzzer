@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:07:12.251618724Z
+Iteration : 132
+Mutator   : BoundaryValue
+
+--- TRIAGE ---
+Verdict   : SUSPICIOUS
+Priority  : HIGH
+Reasoning : Consecutive timeouts with no obvious RFC-mandated drop reason detected. Payload is structurally plausible but server stopped responding. This warrants manual inspection. Flags: 0x0106 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=6]. QDCOUNT: 1. Remaining bytes: 5
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 17 bytes
+Hex Dump  :
+0000  13 00 01 06 00 01 00 00 00 00 00 00 00 00 01 00  |................|
+0010  01                                               |.|
+

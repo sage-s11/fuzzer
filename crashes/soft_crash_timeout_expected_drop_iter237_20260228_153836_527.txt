@@ -1,0 +1,25 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:08:36.527020927Z
+Iteration : 237
+Mutator   : HeaderFlags
+
+--- TRIAGE ---
+Verdict   : EXPECTED_DROP
+Priority  : LOW
+Reasoning : QR bit (0x8000) is SET — packet appears to be a DNS response, not a query. RFC 1035 §4.1.1 requires servers to ignore such packets. BIND9 silent drop is CORRECT behavior. Not a vulnerability. Flags: 0xF800 [QR=1 OPCODE=15 TC=0 RD=0 RA=0 Z=0 RCODE=0]
+Actionable: false
+
+--- PAYLOAD ---
+Size      : 144 bytes
+Hex Dump  :
+0000  13 3C F8 00 00 01 00 00 00 00 00 01 C0 0E C0 10  |.<ø.........À.À.|
+0010  C0 12 C0 14 C0 16 C0 18 C0 1A C0 1C C0 1E C0 20  |À.À.À.À.À.À.À.À |
+0020  C0 22 C0 24 C0 26 C0 28 C0 2A C0 2C C0 2E C0 30  |À"À$À&À(À*À,À.À0|
+0030  C0 32 C0 34 C0 36 C0 38 C0 3A C0 3C C0 3E C0 40  |À2À4À6À8À:À<À>À@|
+0040  C0 42 C0 44 C0 46 C0 48 C0 4A C0 4C C0 4E C0 50  |ÀBÀDÀFÀHÀJÀLÀNÀP|
+0050  C0 52 C0 54 C0 56 C0 58 C0 5A C0 5C C0 5E C0 60  |ÀRÀTÀVÀXÀZÀ\À^À`|
+0060  C0 62 C0 64 C0 66 C0 68 C0 6A C0 6C C0 6E C0 70  |ÀbÀdÀfÀhÀjÀlÀnÀp|
+0070  C0 72 C0 74 C0 76 C0 78 C0 7A C0 7C C0 7E C0 80  |ÀrÀtÀvÀxÀzÀ|À~À.|
+0080  C0 82 C0 84 C0 86 C0 88 C0 8A C0 0C 00 01 00 01  |À.À.À.À.À.À.....|
+

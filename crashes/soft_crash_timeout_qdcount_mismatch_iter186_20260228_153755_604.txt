@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:07:55.604058792Z
+Iteration : 186
+Mutator   : QdCountMismatch
+
+--- TRIAGE ---
+Verdict   : QDCOUNT_MISMATCH
+Priority  : MEDIUM
+Reasoning : QDCOUNT=0 on a QUERY opcode (0) message. A query with no questions is malformed per RFC 1035. Server should return FORMERR. Timeout here is mildly suspicious. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: false
+
+--- PAYLOAD ---
+Size      : 31 bytes
+Hex Dump  :
+0000  13 37 01 00 00 00 00 00 00 00 00 00 04 66 75 7A  |.7...........fuz|
+0010  7A 00 00 00 05 6C 6F 63 61 6C 00 00 01 00 01     |z....local.....|
+

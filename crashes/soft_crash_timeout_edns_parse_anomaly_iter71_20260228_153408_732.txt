@@ -1,0 +1,19 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:04:08.732558162Z
+Iteration : 71
+Mutator   : EdnsOptOverflow(VERSION_NONZERO)
+
+--- TRIAGE ---
+Verdict   : EDNS_PARSE_ANOMALY
+Priority  : HIGH
+Reasoning : EDNS option overflow mutator triggered a timeout. Server may be mis-parsing RDLENGTH or option-length fields in OPT record. RFC 6891 §6.1.2: RDLENGTH and option lengths must be bounds-checked. This is a historically significant bug class — see CVE-2016-2776. Mutator: EdnsOptOverflow(VERSION_NONZERO)
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 40 bytes
+Hex Dump  :
+0000  13 38 01 00 00 01 00 00 00 00 00 01 07 65 78 61  |.8...........exa|
+0010  6D 70 6C 65 03 63 6F 6D 00 00 0F 00 01 00 00 29  |mple.com.......)|
+0020  10 00 00 02 00 00 00 00                          |........|
+

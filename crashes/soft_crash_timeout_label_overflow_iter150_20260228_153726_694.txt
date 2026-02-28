@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:07:26.694069990Z
+Iteration : 150
+Mutator   : ZeroLengthLabel(ZERO_LABEL_MID)
+
+--- TRIAGE ---
+Verdict   : LABEL_OVERFLOW
+Priority  : HIGH
+Reasoning : Zero-length label mutator triggered a timeout. Server may be misinterpreting a zero-length label mid-name or failing to handle structural ambiguity in QNAME parsing. RFC 1035 §3.1: a zero-length label is the root terminator — injecting it mid-name creates parsing ambiguity. Mutator: ZeroLengthLabel(ZERO_LABEL_MID)
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 29 bytes
+Hex Dump  :
+0000  13 37 01 00 00 01 00 00 00 00 00 01 04 66 75 7A  |.7...........fuz|
+0010  7A 00 05 6C 6F 63 61 6C 00 00 01 00 01           |z..local.....|
+

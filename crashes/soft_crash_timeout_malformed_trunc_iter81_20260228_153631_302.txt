@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:06:31.302012492Z
+Iteration : 81
+Mutator   : HeaderFlags
+
+--- TRIAGE ---
+Verdict   : MALFORMED_TRUNC
+Priority  : HIGH
+Reasoning : TC (TrunCation) bit set on an incoming UDP query. This bit is normally set by servers on truncated responses, not on queries. Server should respond normally — timeout here is suspicious. Flags: 0x0200 [QR=0 OPCODE=0 TC=1 RD=0 RA=0 Z=0 RCODE=0]
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 29 bytes
+Hex Dump  :
+0000  13 B8 02 00 00 01 40 00 00 00 00 00 3F 65 78 61  |.¸....@.....?exa|
+0010  6D 70 6C 65 03 63 6F 6D 00 00 0F 00 01           |mple.com.....|
+

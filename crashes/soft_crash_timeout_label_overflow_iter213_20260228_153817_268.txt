@@ -1,0 +1,24 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:08:17.268601616Z
+Iteration : 213
+Mutator   : LabelLength
+
+--- TRIAGE ---
+Verdict   : LABEL_OVERFLOW
+Priority  : HIGH
+Reasoning : Domain name label chain appears to exceed 255-byte maximum (RFC 1035 §3.1) or is missing root label terminator. Bytes scanned: 0. Server should return FORMERR. Timeout here is anomalous. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 113 bytes
+Hex Dump  :
+0000  13 B8 01 00 00 01 00 00 00 00 00 01 40 66 75 7A  |.¸..........@fuz|
+0010  7A 00 00 00 05 6C 00 00 29 10 00 00 00 00 00 00  |z....l..).......|
+0020  50 00 01 00 64 41 41 41 41 00 02 00 64 41 41 41  |P...dAAAA...dAAA|
+0030  41 00 03 00 64 41 41 41 41 00 04 00 64 41 41 41  |A...dAAAA...dAAA|
+0040  41 00 05 00 64 41 41 41 41 00 06 00 64 41 41 41  |A...dAAAA...dAAA|
+0050  41 00 07 00 64 41 41 41 41 00 08 00 64 41 41 41  |A...dAAAA...dAAA|
+0060  41 00 09 00 64 41 41 41 41 00 0A 00 64 41 41 41  |A...dAAAA...dAAA|
+0070  41                                               |A|
+

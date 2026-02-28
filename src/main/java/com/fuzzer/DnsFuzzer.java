@@ -141,6 +141,11 @@ public class DnsFuzzer {
 
             totalSent++;
 
+            // --- Corpus evolution variables ---
+            int  rcode        = -1;
+            int  responseSize = 0;
+            boolean wasTimeout = false;
+
             // Evaluate result
             if (result.isCrash()) {
                 totalCrashes++;
@@ -154,6 +159,7 @@ public class DnsFuzzer {
 
             } else if (result.isTimeout()) {
                 totalTimeouts++;
+                wasTimeout = true;
                 CrashDetector.CrashRecord cr = crashDetector.reportTimeout(
                         mutation.bytes, mutation.mutatorName, i);
                 if (cr != null) {
@@ -162,8 +168,10 @@ public class DnsFuzzer {
 
             } else if (result.hasResponse()) {
                 crashDetector.resetTimeoutCounter();
+                responseSize = result.responseBytes.length;
                 // Check for error RCODEs
                 DnsHeader respHeader = DnsMessage.parseResponseHeader(result.responseBytes);
+                rcode = respHeader.rcode;
                 if (respHeader.rcode == 2) { // SERVFAIL = rcode 2
                     totalErrors++;
                     crashDetector.reportRcodeAnomaly(
@@ -172,13 +180,21 @@ public class DnsFuzzer {
                 }
             }
 
+            // --- Corpus evolution: evaluate this mutation for promotion ---
+            boolean promoted = corpus.evaluate(
+                    mutation.bytes, mutation.mutatorName, seed.label,
+                    rcode, result.rttMs, responseSize, wasTimeout, seed.generation);
+            if (promoted) seed.childrenPromoted++;
+
             // Progress report every 500 iterations
             if (i > 0 && i % 500 == 0) {
                 printProgress(i);
+                corpus.printCorpusStats();
             }
         }
 
         printSummary();
+        corpus.printCorpusStats();
         printTriageReport();
         harness.close();
     }

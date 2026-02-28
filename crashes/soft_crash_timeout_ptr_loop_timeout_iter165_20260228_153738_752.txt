@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:07:38.752340630Z
+Iteration : 165
+Mutator   : CompressionPtrLoop(SELF_LOOP)
+
+--- TRIAGE ---
+Verdict   : PTR_LOOP_TIMEOUT
+Priority  : HIGH
+Reasoning : Compression pointer loop mutator triggered a timeout. Server may be following a pointer cycle without a depth limit. RFC 1035 §4.1.4: implementations must detect pointer loops. A timeout here suggests the parser is spinning — investigate loop detection logic. Mutator: CompressionPtrLoop(SELF_LOOP)
+Actionable: true
+
+--- PAYLOAD ---
+Size      : 18 bytes
+Hex Dump  :
+0000  13 B8 01 00 00 01 00 00 00 00 00 01 C0 0C 00 01  |.¸..........À...|
+0010  00 01                                            |..|
+

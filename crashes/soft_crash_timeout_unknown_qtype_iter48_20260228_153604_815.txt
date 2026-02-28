@@ -1,0 +1,18 @@
+=== CRASH REPORT ===
+Type      : SOFT_CRASH_TIMEOUT
+Timestamp : 2026-02-28T10:06:04.815561906Z
+Iteration : 48
+Mutator   : ZeroLengthLabel(CONSECUTIVE_ZEROS)
+
+--- TRIAGE ---
+Verdict   : UNKNOWN_QTYPE
+Priority  : MEDIUM
+Reasoning : QTYPE=0x0000 is in reserved range. QTYPE=0 is undefined. QTYPE >= 0x8000 is private use / unassigned. Server should return NOTIMP or NOERROR with empty answer section. Timeout here is worth investigating. Flags: 0x0100 [QR=0 OPCODE=0 TC=0 RD=1 RA=0 Z=0 RCODE=0]
+Actionable: false
+
+--- PAYLOAD ---
+Size      : 31 bytes
+Hex Dump  :
+0000  13 B8 01 00 00 01 00 00 00 00 00 01 04 66 75 7A  |.¸...........fuz|
+0010  7A 00 00 00 05 6C 6F 63 61 6C 00 00 01 00 01     |z....local.....|
+
